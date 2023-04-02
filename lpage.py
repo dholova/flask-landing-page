@@ -3,6 +3,8 @@ from cloudipsp import Api, Checkout
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_migrate import Migrate
+import requests
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lpage.db'
@@ -11,6 +13,70 @@ app.secret_key = 'my_secret_key'
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+url = "https://first-lpage.salesdrive.me/handler/"
+
+payload = {
+    "form": "Ebpo73kE4coi6C22nypJWXaJkpVncWoPCa_E08CjSbIdBS8yaPZ1WW9",
+    "getResultData": "",
+    "products": [
+        {
+            "id": "",
+            "name": "",
+            "costPerItem": "",
+            "amount": "",
+            "description": "",
+            "discount": "",
+            "sku": ""
+        }
+    ],
+    "comment": "",
+    "fName": "",
+    "lName": "",
+    "mName": "",
+    "phone": "",
+    "email": "",
+    "con_comment": "",
+    "shipping_method": "",
+    "payment_method": "",
+    "shipping_address": "",
+    "novaposhta": {
+        "ServiceType": "",
+        "payer": "",
+        "area": "",
+        "region": "",
+        "city": "",
+        "cityNameFormat": "",
+        "WarehouseNumber": "",
+        "Street": "",
+        "BuildingNumber": "",
+        "Flat": ""
+    },
+    "ukrposhta": {
+        "ServiceType": "",
+        "payer": "",
+        "type": "",
+        "city": "",
+        "WarehouseNumber": "",
+        "Street": "",
+        "BuildingNumber": "",
+        "Flat": ""
+    },
+    "justin": {
+        "WarehouseNumber": ""
+    },
+    "sajt": "",
+    "organizationId": "",
+    "shipping_costs": "",
+    "prodex24source_full": "",
+    "prodex24source": "",
+    "prodex24medium": "",
+    "prodex24campaign": "",
+    "prodex24content": "",
+    "prodex24term": "",
+    "prodex24page": ""
+}
+
 def create_admin_user():
     admin_username = 'admin1'
     admin_password = generate_password_hash('1234')
@@ -45,9 +111,14 @@ class Admin(db.Model):
 with app.app_context():
     create_admin_user()
     db.create_all()
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def home():
     item = Item.query.all()
+    if request.method == 'POST':
+        form_data = request.form.to_dict()
+        payload.update(form_data)
+        headers = {'Content-type': 'application/json'}
+        response = requests.post(url, data=json.dumps(payload), headers=headers)
     return render_template('index.html', items=item)
 
 @app.route('/login', methods=['GET', 'POST'])
