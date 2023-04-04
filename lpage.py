@@ -5,12 +5,16 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_migrate import Migrate
 import requests
 import json
+import telegram
+
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lpage.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/lpage'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lpage.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'my_secret_key'
-
+bot_token = "6033946855:AAFWBgDFja05rhGs2kxCFJ1l282sGXBU708"
+bot = telegram.Bot(token=bot_token)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -76,7 +80,9 @@ payload = {
     "prodex24term": "",
     "prodex24page": ""
 }
-
+async def send_telegram_message(text):
+    chat_id = 334511336 # замініть на свій chat_id
+    await bot.send_message(chat_id=chat_id, text=text)
 def create_admin_user():
     admin_username = 'admin1'
     admin_password = generate_password_hash('1234')
@@ -112,13 +118,24 @@ with app.app_context():
     create_admin_user()
     db.create_all()
 @app.route('/', methods=['POST', 'GET'])
-def home():
+async def home():
+# def home():
+
     item = Item.query.all()
     if request.method == 'POST':
+        first_name = request.form['fName']
+        email = request.form['email']
+        comment = request.form['comment']
+
+
         form_data = request.form.to_dict()
         payload.update(form_data)
         headers = {'Content-type': 'application/json'}
         response = requests.post(url, data=json.dumps(payload), headers=headers)
+        text = f"Інформація з форми:\nІм'я: {first_name}\nEmail: {email}\nПовідомлення: {comment}"
+        await send_telegram_message(text)
+        # send_telegram_message(text)
+
     return render_template('index.html', items=item)
 
 @app.route('/login', methods=['GET', 'POST'])
