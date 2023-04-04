@@ -12,8 +12,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/lpage'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lpage.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'my_secret_key'
-bot_token = "6033946855:AAFWBgDFja05rhGs2kxCFJ1l282sGXBU708"
+app.secret_key = ''
+bot_token = ""
 bot = telegram.Bot(token=bot_token)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -21,7 +21,7 @@ migrate = Migrate(app, db)
 url = "https://first-lpage.salesdrive.me/handler/"
 
 payload = {
-    "form": "Ebpo73kE4coi6C22nypJWXaJkpVncWoPCa_E08CjSbIdBS8yaPZ1WW9",
+    "form": "",
     "getResultData": "",
     "products": [
         {
@@ -81,11 +81,11 @@ payload = {
     "prodex24page": ""
 }
 async def send_telegram_message(text):
-    chat_id = 334511336 # замініть на свій chat_id
+    chat_id = 
     await bot.send_message(chat_id=chat_id, text=text)
 def create_admin_user():
-    admin_username = 'admin1'
-    admin_password = generate_password_hash('1234')
+    admin_username = ''
+    admin_password = generate_password_hash('')
     existing_user = Admin.query.filter_by(username=admin_username).first()
     if existing_user:
         return
@@ -203,7 +203,7 @@ def create():
 @app.route('/buy/<int:id>')
 def item_buy(id):
     item = Item.query.get(id)
-    api = Api(merchant_id=1396424,
+    api = Api(merchant_id=,
               secret_key='test')
     checkout = Checkout(api=api)
     data = {
