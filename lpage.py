@@ -14,11 +14,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhos
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lpage.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'my_secret_key'
-bot_token = "6033946855:AAFWBgDFja05rhGs2kxCFJ1l282sGXBU708"
+bot_token = ""
 bot = telegram.Bot(token=bot_token)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjI5N2UyMTY1NjgwYjZlMDczM2RmMTY3MWNjYzEzYzc5OTQ3N2ExMDRhZmFhNzUxNDhjZWM2YTkxYjE1MmVlYjE1ODhiMzJkOTVjY2ZlMTIyIn0.eyJhdWQiOiIyY2RhZTNkZGIxNzk4MjRjZTZiNTQ0NWQxODk3OTI3YyIsImp0aSI6IjI5N2UyMTY1NjgwYjZlMDczM2RmMTY3MWNjYzEzYzc5OTQ3N2ExMDRhZmFhNzUxNDhjZWM2YTkxYjE1MmVlYjE1ODhiMzJkOTVjY2ZlMTIyIiwiaWF0IjoxNjgwNzI3NTQxLCJuYmYiOjE2ODA3Mjc1NDEsImV4cCI6MTY4MDczMTE0MSwic3ViIjoiIiwic2NvcGVzIjpbXSwidXNlciI6eyJpZCI6ODI4MTU5MywiZ3JvdXBfaWQiOm51bGwsInBhcmVudF9pZCI6bnVsbCwiY29udGV4dCI6eyJhY2NsaW0iOiIwIn0sImFyZWEiOiJyZXN0In19.aph8XdGogZziDQua_S39ZwJ-1p-F2c6Usr53HSt2vuPWjQX0bJ3MObppALcyDSOm4QoVMTxMj614iq922YrNxrZMFyCWK8BtdHFpN0wQhBMTSY07g7r-RCw-ECW08JoL3QR6ZG_nb6fo8DjYM5REhzj1_fQl_K5oIUVbCrbKtBbNFkAnmQLwVgSoRfVaPs0R2V9q_TQRoaWV18uyOr5df1tJQkF2UVx9m_J3kZFGCQ-YSDnADmFmBmOVIM6qThEZWSoyiqEpjl3xP945xFeFNQUdPqeExksdyaGkDBEurzrk32GR_n2y_u-ofsUbL5eUPgtynFufZLRaIU1fRSiNcA'
+TOKEN = ''
 
 url_sd = "https://first-lpage.salesdrive.me/handler/"
 url_sp = "https://api.sendpulse.com/addressbooks/144824/emails"
@@ -84,11 +84,11 @@ payload = {
     "prodex24page": ""
 }
 async def send_telegram_message(text):
-    chat_id = 334511336
+    chat_id = 
     await bot.send_message(chat_id=chat_id, text=text)
 def create_admin_user():
-    admin_username = 'admin1'
-    admin_password = generate_password_hash('1234')
+    admin_username = ''
+    admin_password = generate_password_hash('')
     existing_user = Admin.query.filter_by(username=admin_username).first()
     if existing_user:
         return
@@ -222,7 +222,7 @@ def create():
 @app.route('/buy/<int:id>')
 def item_buy(id):
     item = Item.query.get(id)
-    api = Api(merchant_id=1396424,
+    api = Api(merchant_id=,
               secret_key='test')
     checkout = Checkout(api=api)
     data = {
