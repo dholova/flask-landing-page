@@ -14,17 +14,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhos
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lpage.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'my_secret_key'
-bot_token = ""
+bot_token = "6033946855:AAFWBgDFja05rhGs2kxCFJ1l282sGXBU708"
 bot = telegram.Bot(token=bot_token)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-TOKEN = ''
+TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijk4YTkxYzA2MTUxZmNlM2E2ZTg0MjU1NTVhNGJlOTE4MjI2NGM3OGEyOGRkNjFiNWYyZTZiZDk5ZjRlMmIxZjdjMzhlNDM3OWUzYzhlNDY2In0.eyJhdWQiOiIyY2RhZTNkZGIxNzk4MjRjZTZiNTQ0NWQxODk3OTI3YyIsImp0aSI6Ijk4YTkxYzA2MTUxZmNlM2E2ZTg0MjU1NTVhNGJlOTE4MjI2NGM3OGEyOGRkNjFiNWYyZTZiZDk5ZjRlMmIxZjdjMzhlNDM3OWUzYzhlNDY2IiwiaWF0IjoxNjgxMjkwODY1LCJuYmYiOjE2ODEyOTA4NjUsImV4cCI6MTY4MTI5NDQ2NSwic3ViIjoiIiwic2NvcGVzIjpbXSwidXNlciI6eyJpZCI6ODI4MTU5MywiZ3JvdXBfaWQiOm51bGwsInBhcmVudF9pZCI6bnVsbCwiY29udGV4dCI6eyJhY2NsaW0iOiIwIn0sImFyZWEiOiJyZXN0In19.vSSuOV9S6iVMjnfooA-oEINImpj0Hwo7b5B3mpXMH7z4ug-Pb_hmMs4FG1o513ZviLGnN7PscmYUd6WexUSYQdrAHKi-IcSqP9GmGMx7JTiXDYcfJ08TKOTUSgLrRFtlsqejBUsyAKOAksX0FOcNyhkfBT4bXS7qif3Abf1f6I7O2KdXEZ7E2nhydi3CTnHGuSixp3ty4B8DJXK5enP2mznCEH4RvCjLMNplSZU-Ezk81AkVgnW7FccjPyR2g_sfkfsDdSwaAtzuKEU0dKJ-wGkL8rl-QRtV3Yc0_IOfV8VOPWNfQq8yo3DylqQmdPclavzVKJC6GTkxAwGI893ncg'
 
 url_sd = "https://first-lpage.salesdrive.me/handler/"
 url_sp = "https://api.sendpulse.com/addressbooks/144824/emails"
 
 payload = {
-    "form": "",
+    "form": "Ebpo73kE4coi6C22nypJWXaJkpVncWoPCa_E08CjSbIdBS8yaPZ1WW9",
     "getResultData": "",
     "products": [
         {
@@ -84,11 +84,11 @@ payload = {
     "prodex24page": ""
 }
 async def send_telegram_message(text):
-    chat_id = 
+    chat_id = 334511336
     await bot.send_message(chat_id=chat_id, text=text)
 def create_admin_user():
-    admin_username = ''
-    admin_password = generate_password_hash('')
+    admin_username = 'admin1'
+    admin_password = generate_password_hash('1234')
     existing_user = Admin.query.filter_by(username=admin_username).first()
     if existing_user:
         return
@@ -222,7 +222,7 @@ def create():
 @app.route('/buy/<int:id>')
 def item_buy(id):
     item = Item.query.get(id)
-    api = Api(merchant_id=,
+    api = Api(merchant_id=1396424,
               secret_key='test')
     checkout = Checkout(api=api)
     data = {
